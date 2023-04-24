@@ -1,0 +1,83 @@
+﻿@model StudentSearch.ViewModels.StudentViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1> 
+
+<p>
+    <a asp-action="Create" asp-route-SortBy="@Model.SortBy" asp-route-StudentMajor="@Model.StudentMajor" asp-route-GradYear="@Model.GradYear" asp-route-FilterBy="@Model.FilterBy">Create New</a>
+</p>
+
+<form asp-controller="Students" asp-action="Index" method="get">
+    <p>
+        <input type="text" asp-for="@Model.FilterBy" />
+        <input type="submit" value="Search" />
+        <a asp-action="Index">Clear</a>
+    </p>
+</form>
+
+<form asp-controller="Students" asp-action="Index" method="get">
+    <p>
+
+        <select asp-for="StudentMajor" asp-items="Model.Majors">
+            <option value="">All</option>
+        </select>
+        <select asp-for="GradYear" asp-items="Model.GradYears">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.FirstName), "Index", new { SortBy = Model.SortByFirstName, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear, FilterBy = Model.FilterBy })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.LastName), "Index", new { SortBy = Model.SortByLastName, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear, FilterBy = Model.FilterBy })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.ExpectedGraduation), "Index", new { SortBy = Model.SortByGraduation, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear, FilterBy = Model.FilterBy })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.GPA), "Index", new { SortBy = Model.SortByGPA, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear, FilterBy = Model.FilterBy })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.Major), "Index", new { SortBy = Model.SortByMajor, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear, FilterBy = Model.FilterBy })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Students!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedGraduation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Major)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { Id = item.Id, SortBy = Model.SortBy, FilterBy = Model.FilterBy, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear }) |
+                    @Html.ActionLink("Details", "Details", new { Id = item.Id, SortBy = Model.SortBy, FilterBy = Model.FilterBy, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear }) |
+                    @Html.ActionLink("Delete", "Delete", new { Id = item.Id, SortBy = Model.SortBy, FilterBy = Model.FilterBy, StudentMajor = Model.StudentMajor, GradYear = Model.GradYear })
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

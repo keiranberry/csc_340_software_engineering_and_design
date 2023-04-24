@@ -1,0 +1,96 @@
+﻿@model StudentSearch.ViewModels.StudentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpectedGraduation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExpectedGraduation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GPA)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GPA)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Major)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Major)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" asp-route-StudentMajor="@Model.StudentMajor" asp-route-GradYear="@Model.GradYear" asp-route-FilterBy="@Model.FilterBy"  asp-route-SortBy="@Model.SortBy">Edit</a> |
+    <a asp-action="Index" asp-route-StudentMajor="@Model.StudentMajor" asp-route-GradYear="@Model.GradYear" asp-route-FilterBy="@Model.FilterBy" asp-route-SortBy="@Model.SortBy">Back to List</a>
+</div>
+<hr />
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommentText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommentEnteredOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommentEnteredBy)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Comments != null)
+            {
+                @foreach (var item in Model.Comments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnteredOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnteredBy)
+                        </td>
+                        <td>
+                            <a asp-action="DeleteComment" asp-route-id="@item.Id" asp-route-studentId="@Model.Id">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <p>
+        <a asp-controller="Students" asp-action="CreateComment" asp-route-id="@Model.Id">Add Comment</a>
+    </p>
+</div>
